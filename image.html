@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File API - FileReader as Data URL</title>
+</head>
+<body>
+    <header>
+        <h1>File API - FileReader</h1>
+    </header>
+    <article>
+        <label for="files">Select multiple files: </label>
+        <input id="files" type="file" accept="image/*" multiple/>
+        <output id="result" />
+    </article>
+</body>
+
+<script>
+window.onload = function(){       
+    //Check File API support
+    if(window.File && window.FileList && window.FileReader)
+    {
+        var filesInput = document.getElementById("files");
+
+        filesInput.addEventListener("change", function(event){
+
+            var files = event.target.files; //FileList object
+            //console.log(files);
+            var output = document.getElementById("result");
+            //console.log(result);
+            for(var i = 0; i< files.length; i++)
+            {
+                var file = files[i];
+
+                //Only pics will be allowed
+                if(!file.type.match('image'))
+                  continue;
+
+                var picReader = new FileReader();
+
+                picReader.addEventListener("load",function(event){
+
+                    var picFile = event.target;
+                    console.log(event);
+                    var div = document.createElement("div");
+
+                    div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+                            "title='" + picFile.name +"' width='80' height='80'/>";
+                    console.log(div.innerHTML);                  
+                    output.insertBefore(div,null);            
+
+                });
+
+                 //Read the image
+                picReader.readAsDataURL(file);
+            }                               
+
+        });
+    }
+    else
+    {
+        console.log("Your browser does not support File API");
+    }
+}
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Demo</title>
+<style>
+.preview {
+width:640px;
+height:360px}
+
+.thumb {
+width:205px;
+margin-right:3px;}
+
+.normal {
+border:3px solid #000000;}
+
+.selected {
+border:3px solid #ff0000;}
+</style>
+</head>
+<body>
+<img id="0" class="preview normal" src="" alt="preview" /><br />
+<img id="1" class="thumb normal" src="images/mountains.jpg" alt="mountains" onmouseover="preview(this)"/>
+<img id="2" class="thumb normal" src="images/desert.jpg" alt="desert" onmouseover="preview(this)"/>
+<img id="3" class="thumb normal" src="images/highway.jpg" alt="highway" onmouseover="preview(this)"/>
+<script>
+
+    var lastImg = 1; //Set initial thumbnail and preview
+    document.getElementById(0).src = document.getElementById(lastImg).src;
+    document.getElementById(lastImg).className = "thumb selected";
+
+    function preview(img) {
+        document.getElementById(lastImg).className = "thumb normal";
+        img.className = "thumb selected";
+        document.getElementById(0).src = img.src;
+        lastImg = img.id
+    }
+</script>
+</body>
+</html>
